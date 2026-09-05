@@ -17,64 +17,45 @@ analysis.
 ## Architecture
 
 ``` text
-┌──────────────────────────────┐
-│      SQL SERVER SOURCE       │
-│                              │
-│ Customers                    │
-│ Products                     │
-│ Categories                   │
-│ Orders                       │
-│ OrderDetails                 │
-│ Employees                    │
-│ Stores                       │
-└──────────────┬───────────────┘
-               │
-               │ SSIS
-               │ Incremental Loading
-               │ CDC / Change Tracking
-               ▼
-┌──────────────────────────────┐
-│          STAGING             │
-│                              │
-│ Raw / Incremental Data       │
-└──────────────┬───────────────┘
-               │
-               │ ETL
-               │ Data Quality
-               │ Transformations
-               │ Conditional Checks
-               ▼
-┌──────────────────────────────┐
-│      DATA WAREHOUSE          │
-│                              │
-│  SCD Type 2 Dimensions       │
-│  • DimCustomer               │
-│  • DimProduct                │
-│  • DimEmployee               │
-│  • DimStore                  │
-│  • DimDate                   │
-│                              │
-│  FactSales                   │
-└──────────────┬───────────────┘
-               │
-               │
-               ▼
-┌──────────────────────────────┐
-│           POWER BI           │
-│                              │
-│  Star Schema                 │
-│  DAX                         │
-│  Time Intelligence           │
-│  Interactive Dashboards      │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│      BUSINESS INSIGHTS       │
-│                              │
-│ Sales • Profit • Products    │
-│ Customers • Trends • KPIs    │
-└──────────────────────────────┘
+┌──────────────────────┐
+│    SQL SERVER        │
+│    SOURCE SYSTEM     │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│   SSIS / CDC / CT    │
+│ Incremental Loading  │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│       STAGING        │
+│ Raw + Data Quality   │
+└──────────┬───────────┘
+           ↓
+┌────────────────────────────┐
+│      DATA WAREHOUSE        │
+│                            │
+│ SCD Type 2 Dimensions      │
+│ FactSales                  │
+│ Star Schema                │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│    SEMANTIC MODEL          │
+│                            │
+│ Relationships              │
+│ DAX Measures               │
+│ KPIs                       │
+│ Hierarchies                │
+│ Business Logic             │
+│ RLS                        │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│         POWER BI           │
+│ Reports & Dashboards       │
+└────────────┬───────────────┘
+             
 ```
 
 ## Source Database
