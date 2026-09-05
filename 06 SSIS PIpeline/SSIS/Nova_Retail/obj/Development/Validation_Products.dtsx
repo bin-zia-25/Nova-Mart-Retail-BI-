@@ -1,0 +1,1831 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/21/2026 12:14:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="AHMED"
+  DTS:CreatorName="AHMED\DELL"
+  DTS:DTSID="{56F21EB7-32CB-4C94-A58F-283DC44A1492}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ValidationTask"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{01542179-5253-4355-B66E-AB8166EF2190}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Destination]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A9196A91-B7FA-43DF-A0AD-358429B25F9F}"
+      DTS:ObjectName="Destination">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Nova_Retail_Staging_DB;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Load_Customers_To_Staging-{A9196A91-B7FA-43DF-A0AD-358429B25F9F}LocalHost;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Source]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F0015DAB-3E90-4443-973B-6DF3456C84F1}"
+      DTS:ObjectName="Source">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Nova_Retail_DB;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Load_Customers_To_Staging-{F0015DAB-3E90-4443-973B-6DF3456C84F1}LocalHost;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load_Validate_Products"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{ec38126e-1ba2-4d80-9532-0ad1386430ac}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load_Validate_Products"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load_Validate_Products\Business_Rule_Check"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Business_Rule_Check"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load_Validate_Products\Business_Rule_Check.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load_Validate_Products\Business_Rule_Check.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output].Columns[RejectionReason]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="31"
+                      lineageId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output].Columns[RejectionReason]"
+                      name="RejectionReason"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Failed Business Validation Rule"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Failed Business Validation Rule"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output].Columns[RejectionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output].Columns[RejectionDate]"
+                      name="RejectionDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load_Validate_Products\Business_Rule_Check.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_Validate_Products\Conditional Split_Business_Rules"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split_Business_Rules"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input].Columns[UnitCost]"
+                      cachedDataType="numeric"
+                      cachedName="UnitCost"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitCost]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input].Columns[UnitPrice]"
+                      cachedDataType="numeric"
+                      cachedName="UnitPrice"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input].Columns[StockQuantity]"
+                      cachedDataType="i4"
+                      cachedName="StockQuantity"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[StockQuantity]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input].Columns[ProductStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ProductStatus"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductStatus]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Valid]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Valid"
+                  synchronousInputId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitPrice]} &gt;= #{Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitCost]} &amp;&amp; #{Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[StockQuantity]} &gt;= 0 &amp;&amp; ![ISNULL](#{Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductStatus]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">UnitPrice &gt;= UnitCost &amp;&amp; StockQuantity &gt;= 0 &amp;&amp; !ISNULL(ProductStatus)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Invalid]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Invalid"
+                  synchronousInputId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_Validate_Products\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Stg].[Products]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Stg].[Products]) [refTable]
+where [refTable].[CategoryID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ProductID" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="ProductName" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="CategoryID" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="UnitCost" dataType="DT_NUMERIC" length="0" precision="18" scale="2" codePage="0"/&gt;&lt;referenceColumn name="UnitPrice" dataType="DT_NUMERIC" length="0" precision="18" scale="2" codePage="0"/&gt;&lt;referenceColumn name="StockQuantity" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProductStatus" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="CreatedDate" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="7" codePage="0"/&gt;&lt;referenceColumn name="ModifiedDate" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="7" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CategoryID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_Validate_Products\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_Validate_Products\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Lookup.Inputs[Lookup Input].Columns[CategoryID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CategoryID"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CategoryID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_Validate_Products\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_Validate_Products\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_Validate_Products\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_Validate_Products\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_Validate_Products\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_Validate_Products\No Match Reason"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="No Match Reason"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load_Validate_Products\No Match Reason.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load_Validate_Products\No Match Reason.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output].Columns[RejectionReason]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="200"
+                      lineageId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output].Columns[RejectionReason]"
+                      name="RejectionReason"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Catgegory does not Exist"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Catgegory does not Exist"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output].Columns[RejectionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output].Columns[RejectionDate]"
+                      name="RejectionDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load_Validate_Products\No Match Reason.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_Validate_Products\ProductsRejects_Staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="ProductsRejects_Staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stg].[ProductRejects]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_Validate_Products\ProductsRejects_Staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[ProductID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProductID"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductID]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[ProductName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ProductName"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductName]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[CategoryID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CategoryID"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CategoryID]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CategoryID]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[UnitCost]"
+                      cachedDataType="numeric"
+                      cachedName="UnitCost"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitCost]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitCost]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[UnitPrice]"
+                      cachedDataType="numeric"
+                      cachedName="UnitPrice"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[StockQuantity]"
+                      cachedDataType="i4"
+                      cachedName="StockQuantity"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[StockQuantity]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[StockQuantity]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[ProductStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ProductStatus"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductStatus]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductStatus]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[RejectionReason]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="RejectionReason"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectReason]"
+                      lineageId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output].Columns[RejectionReason]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].Columns[RejectionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RejectionDate"
+                      externalMetadataColumnId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectDate]"
+                      lineageId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output].Columns[RejectionDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CategoryID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitCost]"
+                      dataType="numeric"
+                      name="UnitCost"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      dataType="numeric"
+                      name="UnitPrice"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[StockQuantity]"
+                      dataType="i4"
+                      name="StockQuantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProductStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectReason]"
+                      dataType="wstr"
+                      length="200"
+                      name="RejectReason" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectDate]"
+                      dataType="dbTimeStamp"
+                      name="RejectDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\ProductsRejects_Staging.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\ProductsRejects_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\ProductsRejects_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\ProductsRejects_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_Validate_Products\Products_InValid_Staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Products_InValid_Staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stg].[ProductRejects]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_Validate_Products\Products_InValid_Staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[ProductID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProductID"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductID]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[ProductName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ProductName"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductName]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[CategoryID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CategoryID"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CategoryID]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CategoryID]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[UnitCost]"
+                      cachedDataType="numeric"
+                      cachedName="UnitCost"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitCost]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitCost]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[UnitPrice]"
+                      cachedDataType="numeric"
+                      cachedName="UnitPrice"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[StockQuantity]"
+                      cachedDataType="i4"
+                      cachedName="StockQuantity"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[StockQuantity]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[StockQuantity]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[ProductStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ProductStatus"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductStatus]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductStatus]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[RejectionReason]"
+                      cachedDataType="wstr"
+                      cachedLength="31"
+                      cachedName="RejectionReason"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectReason]"
+                      lineageId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output].Columns[RejectionReason]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].Columns[RejectionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RejectionDate"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectDate]"
+                      lineageId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output].Columns[RejectionDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CategoryID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitCost]"
+                      dataType="numeric"
+                      name="UnitCost"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      dataType="numeric"
+                      name="UnitPrice"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[StockQuantity]"
+                      dataType="i4"
+                      name="StockQuantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProductStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectReason]"
+                      dataType="wstr"
+                      length="200"
+                      name="RejectReason" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[RejectDate]"
+                      dataType="dbTimeStamp"
+                      name="RejectDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\Products_InValid_Staging.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Products_InValid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_InValid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Products_InValid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_Validate_Products\Products_Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Products_Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DemoProducts]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_Validate_Products\Products_Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Source]"
+                  connectionManagerRefId="Package.ConnectionManagers[Source]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CreatedDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[CreatedDate]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CreatedDate]"
+                      name="CreatedDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                      length="50"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductID]"
+                      name="ProductID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ProductName]"
+                      length="100"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductName]"
+                      name="ProductName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      length="50"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      name="CategoryID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitCost]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[UnitCost]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitCost]"
+                      name="UnitCost"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitPrice]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[StockQuantity]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[StockQuantity]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[StockQuantity]"
+                      name="StockQuantity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ProductStatus]"
+                      length="20"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductStatus]"
+                      name="ProductStatus"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[CreatedDate]"
+                      dataType="dbTimeStamp2"
+                      name="CreatedDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp2"
+                      name="ModifiedDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ProductName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[UnitCost]"
+                      dataType="numeric"
+                      name="UnitCost"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[UnitPrice]"
+                      dataType="numeric"
+                      name="UnitPrice"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[StockQuantity]"
+                      dataType="i4"
+                      name="StockQuantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].ExternalColumns[ProductStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProductStatus" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                      name="ProductID" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ProductName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ProductName]"
+                      name="ProductName" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      name="CategoryID" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[UnitCost]"
+                      dataType="numeric"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[UnitCost]"
+                      name="UnitCost"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[UnitPrice]"
+                      dataType="numeric"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[StockQuantity]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[StockQuantity]"
+                      name="StockQuantity" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ProductStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ProductStatus]"
+                      name="ProductStatus" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[CreatedDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[CreatedDate]"
+                      name="CreatedDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_Validate_Products\Products_Valid_Staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Products_Valid_Staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stg].[Products]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_Validate_Products\Products_Valid_Staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[ProductID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProductID"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductID]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[ProductName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ProductName"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductName]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[CategoryID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CategoryID"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CategoryID]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CategoryID]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[UnitCost]"
+                      cachedDataType="numeric"
+                      cachedName="UnitCost"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitCost]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitCost]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[UnitPrice]"
+                      cachedDataType="numeric"
+                      cachedName="UnitPrice"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[StockQuantity]"
+                      cachedDataType="i4"
+                      cachedName="StockQuantity"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[StockQuantity]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[StockQuantity]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[ProductStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ProductStatus"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductStatus]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ProductStatus]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[CreatedDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="CreatedDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[CreatedDate]" />
+                    <inputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].Columns[ModifiedDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ModifiedDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output].Columns[ModifiedDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CategoryID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitCost]"
+                      dataType="numeric"
+                      name="UnitCost"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      dataType="numeric"
+                      name="UnitPrice"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[StockQuantity]"
+                      dataType="i4"
+                      name="StockQuantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ProductStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProductStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                      dataType="dbTimeStamp2"
+                      name="CreatedDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp2"
+                      name="ModifiedDate"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_Validate_Products\Products_Valid_Staging.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Products_Valid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_Validate_Products\Products_Valid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_Validate_Products\Products_Valid_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load_Validate_Products.Paths[Derived Column Output]"
+              endId="Package\Load_Validate_Products\Products_InValid_Staging.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load_Validate_Products\Business_Rule_Check.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load_Validate_Products.Paths[Derived Column Output1]"
+              endId="Package\Load_Validate_Products\ProductsRejects_Staging.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load_Validate_Products\No Match Reason.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load_Validate_Products.Paths[Invalid]"
+              endId="Package\Load_Validate_Products\Business_Rule_Check.Inputs[Derived Column Input]"
+              name="Invalid"
+              startId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Invalid]" />
+            <path
+              refId="Package\Load_Validate_Products.Paths[Lookup Match Output]"
+              endId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_Validate_Products\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_Validate_Products.Paths[Lookup No Match Output]"
+              endId="Package\Load_Validate_Products\No Match Reason.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\Load_Validate_Products\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Load_Validate_Products.Paths[OLE DB Source Output]"
+              endId="Package\Load_Validate_Products\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load_Validate_Products\Products_Source.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load_Validate_Products.Paths[Valid]"
+              endId="Package\Load_Validate_Products\Products_Valid_Staging.Inputs[OLE DB Destination Input]"
+              name="Valid"
+              startId="Package\Load_Validate_Products\Conditional Split_Business_Rules.Outputs[Valid]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Load_Validate_Products"
+          TopLeft="247,134" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load_Validate_Products">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Load_Validate_Products\Products_Source"
+          TopLeft="52,26" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\Load_Validate_Products\Conditional Split_Business_Rules"
+          TopLeft="540,33" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Load_Validate_Products\ProductsRejects_Staging"
+          TopLeft="64.5,339.5" />
+        <NodeLayout
+          Size="115,42"
+          Id="Package\Load_Validate_Products\Lookup"
+          TopLeft="80,141" />
+        <NodeLayout
+          Size="206,42"
+          Id="Package\Load_Validate_Products\Products_InValid_Staging"
+          TopLeft="707,269.5" />
+        <NodeLayout
+          Size="153,51"
+          Id="Package\Load_Validate_Products\Products_Valid_Staging"
+          TopLeft="471,230" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Load_Validate_Products\Business_Rule_Check"
+          TopLeft="650,172.5" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Load_Validate_Products\No Match Reason"
+          TopLeft="64,244" />
+        <EdgeLayout
+          Id="Package\Load_Validate_Products.Paths[Valid]"
+          TopLeft="662,75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-114.5,155"
+              Start="0,0"
+              End="-114.5,147.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,73.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,73.5"
+                    Point2="0,77.5"
+                    Point3="-4,77.5" />
+                  <mssgle:LineSegment
+                    End="-110.5,77.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-110.5,77.5"
+                    Point2="-114.5,77.5"
+                    Point3="-114.5,81.5" />
+                  <mssgle:LineSegment
+                    End="-114.5,147.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-68.601171875,82.5,22.70234375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_Validate_Products.Paths[OLE DB Source Output]"
+          TopLeft="133.5,68">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-13.8333333333333,73"
+              Start="0,0"
+              End="-13.8333333333333,65.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.1989708404803" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,39.1989708404803"
+                    Point2="0,43.1989708404803"
+                    Point3="-4,43.1989708404803" />
+                  <mssgle:LineSegment
+                    End="-9.83333333333334,43.1989708404803" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-9.83333333333334,43.1989708404803"
+                    Point2="-13.8333333333333,43.1989708404803"
+                    Point3="-13.8333333333333,47.1989708404803" />
+                  <mssgle:LineSegment
+                    End="-13.8333333333333,65.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_Validate_Products.Paths[Lookup No Match Output]"
+          TopLeft="137.5,183">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10,61"
+              Start="0,0"
+              End="10,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.5"
+                    Point2="0,30.5"
+                    Point3="4,30.5" />
+                  <mssgle:LineSegment
+                    End="6,30.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6,30.5"
+                    Point2="10,30.5"
+                    Point3="10,34.5" />
+                  <mssgle:LineSegment
+                    End="10,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-50.80638671875,35.5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_Validate_Products.Paths[Lookup Match Output]"
+          TopLeft="155.333333333333,141">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="447.666666666667,-66"
+              Start="0,0"
+              End="447.666666666667,-58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-33.7454846270509" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-33.7454846270509"
+                    Point2="0,-37.7454846270509"
+                    Point3="4,-37.7454846270509" />
+                  <mssgle:LineSegment
+                    End="443.666666666667,-37.7454846270509" />
+                  <mssgle:CubicBezierSegment
+                    Point1="443.666666666667,-37.7454846270509"
+                    Point2="447.666666666667,-37.7454846270509"
+                    Point3="447.666666666667,-41.7454846270509" />
+                  <mssgle:LineSegment
+                    End="447.666666666667,-58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="175.641946614584,-32.7454846270509,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_Validate_Products.Paths[Invalid]"
+          TopLeft="721,75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="24,97.5"
+              Start="0,0"
+              End="24,90">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.2027027027027" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.2027027027027"
+                    Point2="0,33.2027027027027"
+                    Point3="4,33.2027027027027" />
+                  <mssgle:LineSegment
+                    End="20,33.2027027027027" />
+                  <mssgle:CubicBezierSegment
+                    Point1="20,33.2027027027027"
+                    Point2="24,33.2027027027027"
+                    Point3="24,37.2027027027027" />
+                  <mssgle:LineSegment
+                    End="24,90" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-3.26458984375,38.2027027027027,30.5291796875,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_Validate_Products.Paths[Derived Column Output1]"
+          TopLeft="147.5,286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18.5,53.5"
+              Start="0,0"
+              End="18.5,46">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.75"
+                    Point2="0,26.75"
+                    Point3="4,26.75" />
+                  <mssgle:LineSegment
+                    End="14.5,26.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.5,26.75"
+                    Point2="18.5,26.75"
+                    Point3="18.5,30.75" />
+                  <mssgle:LineSegment
+                    End="18.5,46" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_Validate_Products.Paths[Derived Column Output]"
+          TopLeft="745,214.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="65,55"
+              Start="0,0"
+              End="65,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.5"
+                    Point2="0,27.5"
+                    Point3="4,27.5" />
+                  <mssgle:LineSegment
+                    End="61,27.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="61,27.5"
+                    Point2="65,27.5"
+                    Point3="65,31.5" />
+                  <mssgle:LineSegment
+                    End="65,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_Validate_Products\ProductsRejects_Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_Validate_Products\Products_InValid_Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
