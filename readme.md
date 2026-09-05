@@ -17,23 +17,64 @@ analysis.
 ## Architecture
 
 ``` text
-SQL Server Source
-       ↓
-SSIS — Incremental / CDC / CT
-       ↓
-Staging
-       ↓
-Data Quality + Transformations
-       ↓
-Data Warehouse
-       ↓
-SCD Type 2 Dimensions
-       ↓
-FactSales
-       ↓
-Power BI
-       ↓
-Business Insights
+┌──────────────────────────────┐
+│      SQL SERVER SOURCE       │
+│                              │
+│ Customers                    │
+│ Products                     │
+│ Categories                   │
+│ Orders                       │
+│ OrderDetails                 │
+│ Employees                    │
+│ Stores                       │
+└──────────────┬───────────────┘
+               │
+               │ SSIS
+               │ Incremental Loading
+               │ CDC / Change Tracking
+               ▼
+┌──────────────────────────────┐
+│          STAGING             │
+│                              │
+│ Raw / Incremental Data       │
+└──────────────┬───────────────┘
+               │
+               │ ETL
+               │ Data Quality
+               │ Transformations
+               │ Conditional Checks
+               ▼
+┌──────────────────────────────┐
+│      DATA WAREHOUSE          │
+│                              │
+│  SCD Type 2 Dimensions       │
+│  • DimCustomer               │
+│  • DimProduct                │
+│  • DimEmployee               │
+│  • DimStore                  │
+│  • DimDate                   │
+│                              │
+│  FactSales                   │
+└──────────────┬───────────────┘
+               │
+               │
+               ▼
+┌──────────────────────────────┐
+│           POWER BI           │
+│                              │
+│  Star Schema                 │
+│  DAX                         │
+│  Time Intelligence           │
+│  Interactive Dashboards      │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│      BUSINESS INSIGHTS       │
+│                              │
+│ Sales • Profit • Products    │
+│ Customers • Trends • KPIs    │
+└──────────────────────────────┘
 ```
 
 ## Source Database
