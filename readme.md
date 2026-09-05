@@ -47,8 +47,7 @@ analysis.
 │ DAX Measures               │
 │ KPIs                       │
 │ Hierarchies                │
-│ Business Logic             │
-│ RLS                        │
+│ Business Logic             │                        │
 └────────────┬───────────────┘
              ↓
 ┌────────────────────────────┐
